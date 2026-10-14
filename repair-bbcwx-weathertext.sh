@@ -74,6 +74,7 @@ had_trailing_newline = original.endswith(("\n", "\r"))
 lines = original.splitlines()
 
 weather_if = re.compile(r"^(?P<indent>\s*)if\s*\(\s*this\.weathertext\s*\)\s*\{")
+legacy_weather_line = re.compile(r"^\s*if\s*\(\s*this\.weathertext\s*\)\s*this\.weathertext\.style\s*=")
 
 
 def block_end(start: int) -> int | None:
@@ -88,6 +89,9 @@ def block_end(start: int) -> int | None:
 
 candidates: list[tuple[int, int]] = []
 for index, line in enumerate(lines):
+    if legacy_weather_line.match(line):
+        candidates.append((index, index))
+        continue
     match = weather_if.match(line)
     if not match:
         continue
