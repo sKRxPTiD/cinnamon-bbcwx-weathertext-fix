@@ -6,7 +6,13 @@ This fixes the vertical-layout weather text by applying a zoom-scaled maximum wi
 
 ## The code fix
 
-The repaired `weathertext` block is:
+In a stock BBCWX 5.4 installation, look around line 709 for this original one-line code:
+
+```javascript
+if (this.weathertext) this.weathertext.style= 'text-align : center; font-size:'+BBCWX_CC_TEXT_SIZE*this.zoom+'px';
+```
+
+Replace that line with the following block:
 
 ```javascript
 if (this.weathertext) {
@@ -22,7 +28,7 @@ The important part is the zoom-aware width:
 max-width: 170 * this.zoom
 ```
 
-The script also removes the known duplicate `if (this.weathertext)` variant when it is present.
+The script recognizes that original one-line form, applies the replacement automatically, and removes the known duplicate `if (this.weathertext)` variant when it is present. Line numbers can vary slightly between desklet revisions, so search for `this.weathertext.style` if it is not exactly on line 709.
 
 ## Usage
 
@@ -50,4 +56,3 @@ After a successful repair, reload all desklets from the Cinnamon desktop context
 - Uses an atomic replacement after the repaired file is prepared.
 - Does nothing on a second run when the file is already repaired.
 - Never inspects or modifies the 3.0 desklet.
-
