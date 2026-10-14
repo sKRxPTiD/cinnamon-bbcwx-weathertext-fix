@@ -30,6 +30,20 @@ max-width: 170 * this.zoom
 
 The script recognizes that original one-line form, applies the replacement automatically, and removes the known duplicate `if (this.weathertext)` variant when it is present. Line numbers can vary slightly between desklet revisions, so search for `this.weathertext.style` if it is not exactly on line 709.
 
+## Desklet file location
+
+The user-local desklet file is normally located at:
+
+```text
+~/.local/share/cinnamon/desklets/bbcwx@oak-wood.co.uk/5.4/desklet.js
+```
+
+The script checks that user-local path first. If it is not present, it checks the system-wide fallback:
+
+```text
+/usr/share/cinnamon/desklets/bbcwx@oak-wood.co.uk/5.4/desklet.js
+```
+
 ## Usage
 
 Download the script, make it executable, and run it:
